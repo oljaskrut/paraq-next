@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model FeaturedPost {
+  id        String   @id @default(cuid())
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    String   @unique
+  hidden    Boolean?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([postId])
+}
+
+model Post {
+  id           String              @id @default(cuid())
+  head         String
+  body         String              @db.LongText
+  image        String
+  link         String              @unique
+  source       String
+  date         DateTime
+  hash         String              @unique
+  hidden       Boolean?
+  categories   CategoriesOnPosts[]
+  set          Feed?               @relation("FeedSet", fields: [feedId], references: [id])
+  feedId       String?
+  FeaturedPost FeaturedPost?
+
+  @@index([feedId])
+}
+
+model Category {
+  id     Int                 @id @default(autoincrement())
+  name   String              @unique
+  name_  String
+  short  String
+  short_ String
+  posts  CategoriesOnPosts[]
+}
+
+model CategoriesOnPosts {
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  confidence Float
+
+  @@id([postId, categoryId])
+  @@index([postId])
+  @@index([categoryId])
+}
+
+model Feed {
+  id        String   @id @default(cuid())
+  group     Boolean
+  hash      String   @unique
+  head      String
+  link      String   @unique
+  source    String
+  image     String
+  date      DateTime
+  length    Int
+  set       Post[]   @relation("FeedSet")
+  createdAt DateTime @default(now())
+}
