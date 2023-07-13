@@ -1,11 +1,37 @@
 import XImage from "@/components/x-image"
 import { formatDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
-import { formatTimeToNow } from "@/lib/utils"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export default async function Page({ params }: { params: { id: string } }) {
+import { Metadata, ResolvingMetadata } from "next"
+
+type Props = { params: { id: string } }
+
+export async function generateMetadata(
+  { params }: Props,
+  parent?: ResolvingMetadata,
+): Promise<Metadata> {
+  const post = await prisma.post.findFirst({
+    where: {
+      OR: [{ id: params.id }, { hash: params.id }],
+    },
+    select: {
+      head: true,
+      image: true,
+    },
+  })
+  const previousImages = (await parent)?.openGraph?.images || []
+
+  return {
+    title: post?.head,
+    openGraph: {
+      images: [post?.image ?? "", ...previousImages],
+    },
+  }
+}
+
+export default async function Page({ params }: Props) {
   const post = await prisma.post.findFirst({
     where: {
       OR: [{ id: params.id }, { hash: params.id }],
@@ -31,7 +57,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <div className="flex justify-between text-sm text-muted-foreground px-2">
           <span>{post.source}</span>
 
-          <span>{formatTimeToNow(post.date)}</span>
+          <span>{formatDate(post.date)}</span>
         </div>
         <h2 className="text-2xl font-extrabold tracking-tighter leading-6 my-2">
           {post.head}

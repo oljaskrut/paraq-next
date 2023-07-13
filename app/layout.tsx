@@ -25,6 +25,15 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.paraq.co",
+    title: siteConfig.name,
+    description: siteConfig.description,
+    siteName: siteConfig.name,
+    images: ["/opengraph-image.png"],
+  },
 }
 
 export default function RootLayout({

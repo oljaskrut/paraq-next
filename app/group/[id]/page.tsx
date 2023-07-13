@@ -1,5 +1,4 @@
 import XImage from "@/components/x-image"
-import { formatDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
 import { formatTimeToNow } from "@/lib/utils"
 import Link from "next/link"
