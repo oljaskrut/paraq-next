@@ -4,14 +4,11 @@ import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-import { Metadata, ResolvingMetadata } from "next"
+import { Metadata } from "next"
 
 type Props = { params: { id: string } }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent?: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await prisma.post.findFirst({
     where: {
       OR: [{ id: params.id }, { hash: params.id }],
@@ -21,12 +18,11 @@ export async function generateMetadata(
       image: true,
     },
   })
-  const previousImages = (await parent)?.openGraph?.images || []
 
   return {
     title: post?.head,
     openGraph: {
-      images: [post?.image ?? "", ...previousImages],
+      images: ["/open-graph.png"],
     },
   }
 }
