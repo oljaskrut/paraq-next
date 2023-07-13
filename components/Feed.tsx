@@ -13,6 +13,15 @@ export default async function Feed() {
         gte: todayDate(),
       },
     },
+    select: {
+      id: true,
+      head: true,
+      length: true,
+      hash: true,
+      image: true,
+      source: true,
+      date: true,
+    },
   })
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

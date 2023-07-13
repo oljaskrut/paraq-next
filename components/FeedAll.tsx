@@ -7,6 +7,15 @@ export default async function FeedAll() {
   const feed = await prisma.feed.findMany({
     take: 20,
     orderBy: { date: "desc" },
+    select: {
+      id: true,
+      head: true,
+      image: true,
+      date: true,
+      source: true,
+      hash: true,
+      length: true,
+    },
   })
 
   return (

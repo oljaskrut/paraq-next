@@ -1,4 +1,5 @@
 import XImage from "@/components/x-image"
+import { formatDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
 import { formatTimeToNow } from "@/lib/utils"
 import Link from "next/link"
@@ -9,7 +10,7 @@ export default async function Page({ params }: { params: { id: string } }) {
     where: {
       id: params.id,
     },
-    include: {
+    select: {
       set: {
         orderBy: {
           date: "desc",
@@ -19,33 +20,56 @@ export default async function Page({ params }: { params: { id: string } }) {
   })
 
   if (!feedItem) return notFound()
+  const [first, ...rest] = feedItem.set
 
   return (
     <>
-      <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl mb-4">
-        {feedItem.head}
-      </h1>
-      {feedItem.set.map((post) => (
-        <Link
-          href={`/post/${post.id}`}
-          className="group flex flex-col space-y-2 rounded-lg border shadow"
-        >
-          <XImage
-            url={post.image}
-            className="rounded-t-lg bg-muted transition-colors object-cover aspect-video"
-          />
-          <div className="p-4">
-            <div className="flex justify-between text-sm text-muted-foreground px-2">
-              <span>{post.source}</span>
+      <Link
+        href={`/post/${first.id}`}
+        className="group flex flex-col space-y-2 rounded-lg border shadow"
+      >
+        <XImage
+          url={first.image}
+          className="rounded-t-lg bg-muted transition-colors object-cover aspect-video"
+        />
+        <div className="p-4">
+          <div className="flex justify-between text-sm text-muted-foreground px-2">
+            <span>{first.source}</span>
 
-              <span>{formatTimeToNow(post.date)}</span>
-            </div>
-            <h2 className="text-2xl font-extrabold tracking-tighter leading-6 my-2">
-              {post.head}
-            </h2>
+            <span>{formatDate(first.date)}</span>
           </div>
-        </Link>
-      ))}
+          <h2 className="text-2xl font-extrabold tracking-tighter leading-6 my-2">
+            {first.head}
+          </h2>
+          <p className="text-xl">{first.body}</p>
+
+          <Link href={first.link} className="flex justify-end">
+            <p className="underline underline-offset-2 mt-2">
+              Читать на {first.source}
+            </p>
+          </Link>
+        </div>
+      </Link>
+      <div className="grid md:grid-cols-2 gap-2">
+        {rest.map((item) => (
+          <Link
+            key={item.id}
+            href={`/post/${item.id}`}
+            className="group flex flex-col space-y-2 rounded-lg border shadow"
+          >
+            <div className="p-4">
+              <div className="flex justify-between text-sm text-muted-foreground px-2">
+                <span>{item.source}</span>
+
+                <span>{formatDate(item.date)}</span>
+              </div>
+              <h2 className="text-xl font-bold tracking-tighter leading-6 my-2">
+                {item.head}
+              </h2>
+            </div>
+          </Link>
+        ))}
+      </div>
     </>
   )
 }

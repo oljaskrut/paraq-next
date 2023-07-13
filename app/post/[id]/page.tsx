@@ -59,6 +59,11 @@ export default async function Page({ params }: Props) {
           {post.head}
         </h2>
         <p className="text-xl">{post.body}</p>
+        <Link href={post.link} className="flex justify-end">
+          <p className="underline underline-offset-2 mt-2">
+            Читать на {post.source}
+          </p>
+        </Link>
         <div className="mt-4 w-full h-[0.5px] bg-slate-400" />
         <div>
           {post.categories
