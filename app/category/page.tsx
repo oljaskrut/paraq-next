@@ -1,6 +1,8 @@
 import { statCats } from "@/lib/statCats"
 import Link from "next/link"
 
+export const edge = true
+
 export default async function Home() {
   const pcats = await statCats()
 

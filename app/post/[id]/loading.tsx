@@ -1,6 +1,8 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import React from "react"
 
+export const edge = true
+
 export default function loading() {
   return (
     <article className="group flex flex-col space-y-2 rounded-lg border shadow w-full">

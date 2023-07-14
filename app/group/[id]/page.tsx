@@ -1,9 +1,10 @@
 import XImage from "@/components/x-image"
 import { formatDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
-import { formatTimeToNow } from "@/lib/utils"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+
+export const edge = true
 
 export default async function Page({ params }: { params: { id: string } }) {
   const feedItem = await prisma.feed.findFirst({
@@ -38,10 +39,10 @@ export default async function Page({ params }: { params: { id: string } }) {
 
             <span>{formatDate(first.date)}</span>
           </div>
-          <h2 className="text-2xl font-extrabold tracking-tighter leading-6 my-2">
+          <h2 className="text-xl md:text-2xl font-extrabold tracking-tighter leading-6 my-2">
             {first.head}
           </h2>
-          <p className="text-xl">{first.body}</p>
+          <p className="text-lg md:text-xl">{first.body}</p>
 
           <Link href={first.link} className="flex justify-end">
             <p className="underline underline-offset-2 mt-2">

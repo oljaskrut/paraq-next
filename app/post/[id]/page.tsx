@@ -4,6 +4,8 @@ import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
+export const edge = true
+
 import { Metadata } from "next"
 
 type Props = { params: { id: string } }
@@ -52,13 +54,12 @@ export default async function Page({ params }: Props) {
       <div className="p-4">
         <div className="flex justify-between text-sm text-muted-foreground px-2">
           <span>{post.source}</span>
-
           <span>{formatDate(post.date)}</span>
         </div>
-        <h2 className="text-2xl font-extrabold tracking-tighter leading-6 my-2">
+        <h2 className="text-xl md:text-2xl font-extrabold tracking-tighter leading-6 my-2">
           {post.head}
         </h2>
-        <p className="text-xl">{post.body}</p>
+        <p className="text-lg md:text-xl whitespace-pre-wrap">{post.body}</p>
         <Link href={post.link} className="flex justify-end">
           <p className="underline underline-offset-2 mt-2">
             Читать на {post.source}

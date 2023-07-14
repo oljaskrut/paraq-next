@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils"
 import Link from "next/link"
 import { formatTime, todayDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
+import { Separator } from "./ui/separator"
 
 export default async function Feed() {
   const feed = await prisma.feed.findMany({
@@ -24,36 +25,40 @@ export default async function Feed() {
     },
   })
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-2 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <Separator />
+
       {feed.map((item) => (
-        <Link
-          href={item.length > 2 ? `/group/${item.id}` : `/post/${item.hash}`}
-          key={item.id}
-          className={cn(
-            "group flex flex-col space-y-2 rounded-lg border shadow",
-            item.length > 2 && "shadow-cyan-500 shadow-md",
-          )}
-        >
-          <XImage
-            url={item.image}
-            className="rounded-t-lg bg-muted transition-colors object-cover aspect-video"
-          />
-          <div className="p-4">
-            <div className="flex justify-between text-sm text-muted-foreground px-2">
-              <span>{item.source}</span>
+        <>
+          <Link
+            href={`/group/${item.id}`}
+            key={item.id}
+            className="group flex flex-col md:space-y-2 rounded-lg md:border shadow"
+          >
+            <XImage
+              url={item.image}
+              className="hidden md:flex rounded-t-lg bg-muted transition-colors object-cover aspect-video"
+            />
+            <div className="px-4 py-2 md:py-4">
+              <div className="hidden md:flex justify-between text-sm text-muted-foreground px-2">
+                <span>{item.source}</span>
 
-              <span>{formatTime(item.date)}</span>
+                <span>{formatTime(item.date)}</span>
+              </div>
+
+              <div className="flex flex-col items-end justify-between">
+                <h2 className="flex text-lg md:text-2xl font-extrabold tracking-tighter leading-6 md:my-2">
+                  {item.head}
+                </h2>
+
+                <span className="hidden md:flex">
+                  еще {item.length} похожих
+                </span>
+              </div>
             </div>
-
-            <div className="flex flex-col items-end justify-between">
-              <h2 className="flex text-2xl font-extrabold tracking-tighter leading-6 my-2">
-                {item.head}
-              </h2>
-
-              {item.length > 2 && <span>еще {item.length} похожих</span>}
-            </div>
-          </div>
-        </Link>
+          </Link>
+          <Separator />
+        </>
       ))}
     </div>
   )
