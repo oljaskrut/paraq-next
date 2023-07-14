@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export const edge = true
-
 import { Metadata } from "next"
 
 type Props = { params: { id: string } }

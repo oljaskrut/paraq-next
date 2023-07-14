@@ -26,7 +26,7 @@ export default async function Feed() {
   })
   return (
     <div className="grid gap-2 md:gap-4 md:grid-cols-2 lg:grid-cols-3">
-      <Separator />
+      <Separator className="md:hidden" />
 
       {feed.map((item) => (
         <>
@@ -57,7 +57,7 @@ export default async function Feed() {
               </div>
             </div>
           </Link>
-          <Separator />
+          <Separator className="md:hidden" />
         </>
       ))}
     </div>

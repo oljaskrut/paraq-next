@@ -4,8 +4,6 @@ import { prisma } from "@/lib/prisma"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export const edge = true
-
 export default async function Page({ params }: { params: { id: string } }) {
   const feedItem = await prisma.feed.findFirst({
     where: {
