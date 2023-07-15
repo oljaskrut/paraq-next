@@ -6,6 +6,8 @@ import { notFound } from "next/navigation"
 
 import { Metadata } from "next"
 
+export const dynamic = "force-static"
+
 type Props = { params: { id: string } }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
