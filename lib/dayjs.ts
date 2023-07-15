@@ -10,11 +10,14 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 export function todayDate() {
-  return dayjs().subtract(18, "hours").toDate()
+  return dayjs().subtract(2, "hours").toDate()
 }
 
 export function formatDate(date: Date) {
-  const d = dayjs(date).subtract(6, "hours")
+  const d =
+    process.env.NODE_ENV === "production"
+      ? dayjs(date)
+      : dayjs(date).subtract(6, "hours")
   if (d.isToday()) {
     return "Сегодня, " + d.format("HH:mm")
   }

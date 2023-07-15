@@ -1,24 +1,23 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { formatDistanceToNowStrict, subHours } from "date-fns"
-import locale from "date-fns/locale/en-US"
+import locale from "date-fns/locale/ru"
 
- 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
 const formatDistanceLocale = {
-  lessThanXSeconds: "just now",
-  xSeconds: "just now",
-  halfAMinute: "just now",
-  lessThanXMinutes: "{{count}}m",
-  xMinutes: "{{count}}m",
-  aboutXHours: "{{count}}h",
-  xHours: "{{count}}h",
-  xDays: "{{count}}d",
-  aboutXWeeks: "{{count}}w",
-  xWeeks: "{{count}}w",
+  lessThanXSeconds: "сейчас",
+  xSeconds: "сейчас",
+  halfAMinute: "сейчас",
+  lessThanXMinutes: "{{count}}м",
+  xMinutes: "{{count}}м",
+  aboutXHours: "{{count}}ч",
+  xHours: "{{count}}ч",
+  xDays: "{{count}}д",
+  aboutXWeeks: "{{count}}н",
+  xWeeks: "{{count}}н",
   aboutXMonths: "{{count}}m",
   xMonths: "{{count}}m",
   aboutXYears: "{{count}}y",
@@ -39,7 +38,7 @@ function formatDistance(token: string, count: number, options?: any): string {
       return "in " + result
     } else {
       if (result === "just now") return result
-      return result + " ago"
+      return result + " назад"
     }
   }
 
