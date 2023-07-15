@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma"
 
 export default async function FeedAll() {
   const feed = await prisma.feed.findMany({
-    take: 20,
+    take: 32,
     orderBy: { date: "desc" },
     select: {
       id: true,
@@ -35,7 +35,9 @@ export default async function FeedAll() {
           />
           <div className="p-4">
             <div className="flex justify-between text-sm text-muted-foreground px-2">
-              <span>{item.source}</span>
+              <Link href={`/source/${item.source}`}>
+                <span>{item.source}</span>
+              </Link>
 
               <span>{formatTimeToNow(item.date)}</span>
             </div>

@@ -5,8 +5,12 @@ export const siteConfig = {
   description: "Beautifully designed all-in-one news platform",
   mainNav: [
     {
-      title: "Categories",
+      title: "Категории",
       href: "/category",
+    },
+    {
+      title: "Источники",
+      href: "/source",
     },
   ],
   links: {

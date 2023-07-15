@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma"
+import { todayDate } from "./dayjs"
 
 export async function statCats() {
   try {
@@ -12,7 +13,17 @@ export async function statCats() {
           postId: "desc",
         },
       },
-      take: 50,
+      take: 20,
+      where: {
+        post: {
+          date: {
+            gte: todayDate(),
+          },
+        },
+        categoryId: {
+          notIn: [765, 774],
+        },
+      },
     })
 
     const cats = await prisma.category.findMany({

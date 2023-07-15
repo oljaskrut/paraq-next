@@ -35,7 +35,9 @@ export default async function Page({ params }: { params: { id: string } }) {
         />
         <div className="p-4">
           <div className="flex justify-between text-sm text-muted-foreground px-2">
-            <span>{first.source}</span>
+            <Link href={`/source/${first.source}`}>
+              <span>{first.source}</span>
+            </Link>
 
             <span>{formatDate(first.date)}</span>
           </div>

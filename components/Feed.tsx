@@ -1,6 +1,6 @@
 import XImage from "@/components/x-image"
 import Link from "next/link"
-import { formatTime, todayDate } from "@/lib/dayjs"
+import { formatTime, windowDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
 import { Separator } from "./ui/separator"
 
@@ -10,7 +10,7 @@ export default async function Feed() {
     orderBy: { length: "desc" },
     where: {
       date: {
-        gte: todayDate(),
+        gte: windowDate(),
       },
     },
     select: {
@@ -42,7 +42,9 @@ export default async function Feed() {
               />
               <div className="px-4 py-2 md:py-4">
                 <div className="hidden md:flex justify-between text-sm text-muted-foreground px-2">
-                  <span>{item.source}</span>
+                  <Link href={`/source/${item.source}`}>
+                    <span>{item.source}</span>
+                  </Link>
 
                   <span>{formatTime(item.date)}</span>
                 </div>
