@@ -1,6 +1,8 @@
 import Feed from "@/components/Feed"
 import FeedAll from "@/components/FeedAll"
 
+export const revalidate = 60
+
 export default async function Home() {
   return (
     <main className="md:container grid items-center gap-6 md:pb-4 pt-6">
