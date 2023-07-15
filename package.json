@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npx prisma generate --data-proxy && npx prisma db push && next build",
     "start": "next start",
-    "lint": "next lint",
-    "vercel-build": "npx prisma generate --data-proxy && next build"
+    "lint": "next lint"
   },
   "dependencies": {
     "@prisma/client": "^5.0.0",
