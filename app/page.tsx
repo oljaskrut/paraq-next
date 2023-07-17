@@ -2,7 +2,6 @@ import Feed from "@/components/Feed"
 import FeedAll from "@/components/FeedAll"
 
 export const dynamic = "force-dynamic"
-export const runtime = "edge"
 
 export default async function Home() {
   return (
