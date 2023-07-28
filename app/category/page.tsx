@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <main className="md:container grid items-center gap-6 md:pb-4 pt-6">
       <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl mb-2">
-        Популярное сегодня
+        Популярные категории
       </h1>
 
       {pcats.map(

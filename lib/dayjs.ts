@@ -10,11 +10,19 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 export function windowDate() {
-  return dayjs().subtract(6, "hours").toDate()
+  const d =
+    process.env.NODE_ENV === "production"
+      ? dayjs()
+      : dayjs().subtract(6, "hours")
+  return d.subtract(8, "hours").toDate()
 }
 
 export function todayDate() {
-  return dayjs().subtract(18, "hours").toDate()
+  const d =
+    process.env.NODE_ENV === "production"
+      ? dayjs()
+      : dayjs().subtract(6, "hours")
+  return d.subtract(24, "hours").toDate()
 }
 
 export function formatDate(date: Date) {

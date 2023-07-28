@@ -7,9 +7,18 @@ export default async function FeedAll() {
   const feed = await prisma.feed.findMany({
     orderBy: { date: "desc" },
     where: {
-      NOT: {
-        hidden: true,
-      },
+      OR: [
+        {
+          hidden: {
+            equals: null,
+          },
+        },
+        {
+          hidden: {
+            equals: false,
+          },
+        },
+      ],
     },
     take: 32,
     select: {

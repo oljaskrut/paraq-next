@@ -12,9 +12,18 @@ export default async function Feed() {
       date: {
         gte: windowDate(),
       },
-      NOT: {
-        hidden: true,
-      },
+      OR: [
+        {
+          hidden: {
+            equals: null,
+          },
+        },
+        {
+          hidden: {
+            equals: false,
+          },
+        },
+      ],
     },
     select: {
       id: true,
@@ -57,7 +66,6 @@ export default async function Feed() {
                   <h2 className="flex text-lg md:text-2xl font-extrabold tracking-tighter leading-6 md:my-2">
                     {item.head}
                   </h2>
-
                   <span className="hidden md:flex">
                     еще {item.length} похожих
                   </span>
