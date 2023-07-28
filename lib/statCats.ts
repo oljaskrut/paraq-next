@@ -13,13 +13,8 @@ export async function statCats() {
           postId: "desc",
         },
       },
-      take: 20,
+      take: 32,
       where: {
-        post: {
-          date: {
-            gte: todayDate(),
-          },
-        },
         categoryId: {
           notIn: [765, 774],
         },
