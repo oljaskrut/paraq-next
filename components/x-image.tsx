@@ -5,9 +5,11 @@ import { useState } from "react"
 export default function XImage({
   url,
   className,
+  priority,
 }: {
   url: string
   className: string
+  priority?: boolean
 }) {
   const [error, setError] = useState(false)
 
@@ -22,6 +24,7 @@ export default function XImage({
       height={452}
       className={className}
       unoptimized={true}
+      priority={priority}
     />
   )
 }

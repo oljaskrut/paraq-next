@@ -12,6 +12,9 @@ export default async function Feed() {
       date: {
         gte: windowDate(),
       },
+      NOT: {
+        hidden: true,
+      },
     },
     select: {
       id: true,
@@ -28,7 +31,7 @@ export default async function Feed() {
       <Separator className="md:hidden" />
 
       {feed
-        .sort((a, b) => (b.date > a.date ? 1 : -1))
+        // .sort((a, b) => (b.date > a.date ? 1 : -1))
         .map((item) => (
           <>
             <Link
@@ -39,6 +42,7 @@ export default async function Feed() {
               <XImage
                 url={item.image}
                 className="hidden md:flex rounded-t-lg bg-muted transition-colors object-cover aspect-video"
+                priority={true}
               />
               <div className="px-4 py-2 md:py-4">
                 <div className="hidden md:flex justify-between text-sm text-muted-foreground px-2">

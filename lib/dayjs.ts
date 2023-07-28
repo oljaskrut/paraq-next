@@ -10,7 +10,7 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 
 export function windowDate() {
-  return dayjs().subtract(2, "hours").toDate()
+  return dayjs().subtract(6, "hours").toDate()
 }
 
 export function todayDate() {

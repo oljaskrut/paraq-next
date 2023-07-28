@@ -5,8 +5,13 @@ import { prisma } from "@/lib/prisma"
 
 export default async function FeedAll() {
   const feed = await prisma.feed.findMany({
-    take: 32,
     orderBy: { date: "desc" },
+    where: {
+      NOT: {
+        hidden: true,
+      },
+    },
+    take: 32,
     select: {
       id: true,
       head: true,
@@ -20,7 +25,7 @@ export default async function FeedAll() {
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {feed.map((item) => (
+      {feed.map((item, i) => (
         <Link
           href={item.length > 2 ? `/group/${item.id}` : `/post/${item.hash}`}
           key={item.id}
@@ -32,6 +37,7 @@ export default async function FeedAll() {
           <XImage
             url={item.image}
             className="rounded-t-lg bg-muted transition-colors object-cover aspect-video"
+            priority={i < 3}
           />
           <div className="p-4">
             <div className="flex justify-between text-sm text-muted-foreground px-2">

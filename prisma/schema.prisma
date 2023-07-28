@@ -4,8 +4,7 @@ generator client {
 
 datasource db {
   provider     = "mysql"
-  url          = env("DIRECT_URL")
-  directUrl    = env("DIRECT_URL")
+  url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
 
@@ -71,4 +70,5 @@ model Feed {
   length    Int
   set       Post[]   @relation("FeedSet")
   createdAt DateTime @default(now())
+  hidden    Boolean?
 }
