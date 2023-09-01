@@ -59,16 +59,19 @@ model CategoriesOnPosts {
 }
 
 model Feed {
-  id        String   @id @default(cuid())
-  group     Boolean
-  hash      String   @unique
-  head      String
-  link      String   @unique
-  source    String
-  image     String
-  date      DateTime
-  length    Int
-  set       Post[]   @relation("FeedSet")
-  createdAt DateTime @default(now())
-  hidden    Boolean?
+  id String @id @default(cuid())
+
+  group        Boolean
+  hash         String   @unique
+  head         String
+  summary      String   @db.LongText
+  isSummarized Boolean  @default(false)
+  link         String   @unique
+  source       String
+  image        String
+  date         DateTime
+  hidden       Boolean? @default(false)
+  length       Int
+  set          Post[]   @relation("FeedSet")
+  createdAt    DateTime @default(now())
 }
