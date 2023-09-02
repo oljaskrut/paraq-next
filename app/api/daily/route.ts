@@ -13,8 +13,8 @@ export async function GET(request: Request) {
   const data = await prisma.feed.findMany({
     take: limit,
     orderBy: {
-      // length: "desc",
-      date: "asc",
+      length: "desc",
+      // date: "asc",
     },
     where: {
       date: {
