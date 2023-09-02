@@ -18,7 +18,7 @@ export function windowDate() {
 }
 
 export function todayDate() {
-  const d = dayjs()
+  const d = dayjs().add(6, "hours")
   // process.env.NODE_ENV === "production"
   // ? dayjs()
   // : dayjs().subtract(6, "hours")

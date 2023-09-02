@@ -47,6 +47,6 @@ export async function GET(request: Request) {
     : data
 
   const from = todayDate()
-  const time = formatDate(new Date())
+  const time = new Date().toLocaleTimeString("ru-RU")
   return NextResponse.json({ from, time, mod })
 }
