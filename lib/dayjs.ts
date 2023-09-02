@@ -18,18 +18,18 @@ export function windowDate() {
 }
 
 export function todayDate() {
-  const d =
-    process.env.NODE_ENV === "production"
-      ? dayjs()
-      : dayjs().subtract(6, "hours")
+  const d = dayjs()
+  // process.env.NODE_ENV === "production"
+  // ? dayjs()
+  // : dayjs().subtract(6, "hours")
   return d.subtract(24, "hours").toDate()
 }
 
 export function formatDate(date: Date) {
-  const d =
-    process.env.NODE_ENV === "production"
-      ? dayjs(date)
-      : dayjs(date).subtract(6, "hours")
+  const d = dayjs(date)
+  // process.env.NODE_ENV === "production"
+  // ? dayjs()
+  // : dayjs().subtract(6, "hours")
   if (d.isToday()) {
     return "Сегодня, " + d.format("HH:mm")
   }

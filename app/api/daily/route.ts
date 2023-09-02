@@ -1,4 +1,4 @@
-import { formatTime, todayDate, windowDate } from "@/lib/dayjs"
+import { formatDate, formatTime, todayDate, windowDate } from "@/lib/dayjs"
 import { prisma } from "@/lib/prisma"
 import { NextResponse } from "next/server"
 
@@ -13,7 +13,8 @@ export async function GET(request: Request) {
   const data = await prisma.feed.findMany({
     take: limit,
     orderBy: {
-      length: "desc",
+      // length: "desc",
+      date: "asc",
     },
     where: {
       date: {
@@ -45,7 +46,7 @@ export async function GET(request: Request) {
       )
     : data
 
-  const from = windowDate()
-  const time = new Date().toLocaleTimeString("ru-RU")
+  const from = todayDate()
+  const time = formatDate(new Date())
   return NextResponse.json({ from, time, mod })
 }

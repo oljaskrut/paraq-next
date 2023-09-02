@@ -12,18 +12,7 @@ export default async function Feed() {
       date: {
         gte: windowDate(),
       },
-      OR: [
-        {
-          hidden: {
-            equals: null,
-          },
-        },
-        {
-          hidden: {
-            equals: false,
-          },
-        },
-      ],
+      hidden: false,
     },
     select: {
       id: true,
@@ -44,7 +33,7 @@ export default async function Feed() {
         .map((item) => (
           <>
             <Link
-              href={`/group/${item.id}`}
+              href={`/feed/${item.id}`}
               key={item.id}
               className="group flex flex-col md:space-y-2 rounded-lg md:border shadow"
             >
@@ -53,6 +42,9 @@ export default async function Feed() {
                 className="hidden md:flex rounded-t-lg bg-muted transition-colors object-cover aspect-video"
                 priority={true}
               />
+              <div className="absolute rounded-full w-8 h-8 bg-slate-800 border border-slate-300 ml-2 text-center text-lg">
+                {item.length}
+              </div>
               <div className="px-4 py-2 md:py-4">
                 <div className="hidden md:flex justify-between text-sm text-muted-foreground px-2">
                   <Link href={`/source/${item.source}`}>
@@ -66,9 +58,6 @@ export default async function Feed() {
                   <h2 className="flex text-lg md:text-2xl font-extrabold tracking-tighter leading-6 md:my-2">
                     {item.head}
                   </h2>
-                  <span className="hidden md:flex">
-                    еще {item.length} похожих
-                  </span>
                 </div>
               </div>
             </Link>
