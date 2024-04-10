@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model FeaturedPost {
@@ -22,7 +22,7 @@ model FeaturedPost {
 model Post {
   id           String              @id @default(cuid())
   head         String
-  body         String              @db.LongText
+  body         String              @db.Text
   image        String
   link         String              @unique
   source       String
@@ -64,7 +64,7 @@ model Feed {
   group        Boolean
   hash         String   @unique
   head         String
-  summary      String   @db.LongText
+  summary      String   @db.Text
   isSummarized Boolean  @default(false)
   link         String   @unique
   source       String

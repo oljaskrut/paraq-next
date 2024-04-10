@@ -40,9 +40,9 @@ export default async function Feed() {
               <XImage
                 url={item.image}
                 className="hidden md:flex rounded-t-lg bg-muted transition-colors object-cover aspect-video"
-                priority={true}
+                // priority={true}
               />
-              <div className="absolute rounded-full w-8 h-8 bg-slate-800 border border-slate-300 ml-2 text-center text-lg">
+              <div className="hidden md:absolute rounded-full w-8 h-8 bg-slate-800 border border-slate-300 ml-2 text-center text-lg">
                 {item.length}
               </div>
               <div className="px-4 py-2 md:py-4">

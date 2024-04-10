@@ -10,7 +10,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "^5.0.0",
+    "@prisma/client": "^5.12.1",
     "@radix-ui/react-separator": "^1.0.3",
     "@types/node": "20.4.2",
     "@types/react": "18.2.14",
@@ -33,6 +33,6 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "prisma": "^5.0.0"
+    "prisma": "^5.12.1"
   }
 }
